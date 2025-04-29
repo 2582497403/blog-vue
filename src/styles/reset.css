@@ -1,0 +1,42 @@
+/* 清除默认内外边距 */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 移除默认列表样式 */
+  ul, ol {
+    list-style: none;
+  }
+  
+  /* 清除默认超链接样式 */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  /* 设置全局字体和基础排版 */
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #f5f7fa;
+    line-height: 1.6;
+  }
+  
+  /* 图片不超过容器宽度 */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* 表单元素字体继承 */
+  input, textarea, select, button {
+    font: inherit;
+    border: none;
+    outline: none;
+    background: none;
+  }
+  
