@@ -13,21 +13,21 @@
       </el-input>
 
       <!-- 通知图标 -->
-      <el-badge :value="3" class="notification-badge">
+      <el-badge :value="settingsStore.notificationCount" class="notification-badge">
         <el-icon><Bell /></el-icon>
       </el-badge>
 
       <!-- 用户头像和下拉菜单 -->
-      <el-dropdown>
+      <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link user-info">
-          <el-avatar size="small" src="../../assets/avatar.png" />
-          <span>管理员</span>
+          <el-avatar size="small" :src="userStore.avatar" />
+          <span>{{ userStore.username }}</span>
           <el-icon class="el-icon--right"><ArrowDown /></el-icon>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item divided>退出登录</el-dropdown-item>
+            <el-dropdown-item command="profile">个人中心</el-dropdown-item>
+            <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -36,15 +36,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Bell, Search, ArrowDown } from '@element-plus/icons-vue'
-
 // 为组件定义名称
 defineOptions({
   name: 'PageHeader',
 })
 
+import { ref } from 'vue'
+import { Bell, Search, ArrowDown } from '@element-plus/icons-vue'
+import { useUserStore } from '@/stores/user'
+import { useSettingsStore } from '@/stores/settings'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const userStore = useUserStore()
+const settingsStore = useSettingsStore()
 const searchText = ref('')
+
+// 下拉菜单处理函数
+const handleCommand = (command: string) => {
+  if (command === 'logout') {
+    userStore.logout()
+    router.push('/login')
+  } else if (command === 'profile') {
+    router.push('/profile')
+  }
+}
 </script>
 
 <style scoped>

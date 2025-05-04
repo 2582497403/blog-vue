@@ -1,8 +1,8 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="200px">
-        <Sidebar />
+      <el-aside :width="settingsStore.sidebarCollapsed ? '64px' : '200px'">
+        <AppSidebar />
       </el-aside>
       <el-container class="main-container">
         <el-header>
@@ -11,7 +11,9 @@
         <el-main>
           <router-view />
         </el-main>
-        <el-footer>Footer</el-footer>
+        <el-footer>
+          <PageFooter />
+        </el-footer>
       </el-container>
     </el-container>
   </div>
@@ -19,7 +21,11 @@
 
 <script setup lang="ts">
 import PageHeader from '@/components/layout/Header.vue'
-import Sidebar from '@/components/layout/Sidebar.vue'
+import AppSidebar from '@/components/layout/Sidebar.vue'
+import PageFooter from '@/components/layout/Footer.vue'
+import { useSettingsStore } from '@/stores/settings'
+
+const settingsStore = useSettingsStore()
 </script>
 
 <style scoped>
@@ -37,5 +43,11 @@ import Sidebar from '@/components/layout/Sidebar.vue'
 .el-header,
 .el-footer {
   padding: 0;
+}
+
+/* 添加侧边栏过渡动画 */
+.el-aside {
+  transition: width 0.3s;
+  overflow: hidden;
 }
 </style>
